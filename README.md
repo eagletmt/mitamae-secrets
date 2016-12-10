@@ -17,6 +17,19 @@ store.store('secret_password', 'P@ssw0rd')
 store.store('secret_password', 'P@ssw0rd', 'foobar')
 ```
 
+## CLI
+
+```
+% mitamae-secrets set --base /path/to/secret secret_password
+secret_password: 
+% mitamae-secrets get --base /path/to/secret secret_password
+P@ssw0rd
+% echo -e "hello\nworld" | mitamae-secrets set --base /path/to/secret greeting
+% mitamae-secrets get --base /path/to/secret greeting
+hello
+world
+```
+
 ## Build with mitamae
 
 ```
