@@ -29,5 +29,13 @@ module MitamaeSecrets
       @type = type
       @key = key
     end
+
+    def to_json
+      {
+        name: @name,
+        type: @type,
+        key: [@key].pack('m'),
+      }.to_json
+    end
   end
 end

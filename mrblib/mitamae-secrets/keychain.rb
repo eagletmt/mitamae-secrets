@@ -11,5 +11,11 @@ module MitamaeSecrets
     rescue Errno::ENOENT
       raise KeyNotFound.new("Couldn't find key #{name.inspect}")
     end
+
+    def save(aes_key)
+      File.open(File.join(@path, aes_key.name), 'w', 0600) do |io|
+        io.puts aes_key.to_json
+      end
+    end
   end
 end

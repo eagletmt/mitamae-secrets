@@ -6,6 +6,7 @@ MRuby::Gem::Specification.new('mitamae-secrets') do |spec|
   spec.cc.flags << ' $(pkg-config --cflags openssl)'
   spec.linker.flags << ' $(pkg-config --libs openssl)'
 
+  spec.add_dependency 'mruby-dir', github: 'iij/mruby-dir'
   spec.add_dependency 'mruby-hash-ext', core: 'mruby-hash-ext'
   spec.add_dependency 'mruby-io', github: 'iij/mruby-io'
   spec.add_dependency 'mruby-json', github: 'mattn/mruby-json'

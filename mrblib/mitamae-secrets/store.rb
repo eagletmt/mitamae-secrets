@@ -2,6 +2,7 @@ module MitamaeSecrets
   class Store
     def initialize(base_dir)
       @base_dir = base_dir
+      ensure_directories!
     end
 
     DEFAULT = Object.new
@@ -30,6 +31,19 @@ module MitamaeSecrets
     end
 
     private
+
+    def ensure_directories!
+      mkdir_p(@base_dir)
+      mkdir_p(File.join(@base_dir, 'keys'))
+      mkdir_p(File.join(@base_dir, 'values'))
+    end
+
+    def mkdir_p(path)
+      # XXX: Should make all parent directories
+      unless Dir.exist?(path)
+        Dir.mkdir(path)
+      end
+    end
 
     def values_path(name)
       File.join(@base_dir, 'values', name)
