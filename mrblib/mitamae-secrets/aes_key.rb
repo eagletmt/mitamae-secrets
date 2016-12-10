@@ -5,7 +5,7 @@ module MitamaeSecrets
       new(data.fetch('name'), data.fetch('type'), data.fetch('key').unpack('m')[0])
     end
 
-    attr_reader :key
+    attr_reader :name, :key
 
     def initialize(name, type, key)
       if name.include?("\\") || name.include?('/') || name.include?(':')
