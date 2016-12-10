@@ -3,8 +3,7 @@ MRuby::Gem::Specification.new('mitamae-secrets') do |spec|
   spec.author = ['Kohei Suzuki']
   spec.summary = 'mitamae version of itamae-secrets'
 
-  spec.cc.flags << ' $(pkg-config --cflags openssl)'
-  spec.linker.flags << ' $(pkg-config --libs openssl)'
+  spec.linker.libraries << 'ssl' << 'crypto'
 
   spec.add_dependency 'mruby-dir', github: 'iij/mruby-dir'
   spec.add_dependency 'mruby-hash-ext', core: 'mruby-hash-ext'

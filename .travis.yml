@@ -3,8 +3,3 @@ dist: trusty
 sudo: false
 script:
   - ruby run_test.rb
-addons:
-  apt:
-    packages:
-      - libssl-dev
-      - pkg-config
