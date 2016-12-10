@@ -1,3 +1,5 @@
 language: ruby
+dist: trusty
+sudo: false
 script:
   - ruby run_test.rb
