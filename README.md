@@ -28,6 +28,10 @@ P@ssw0rd
 % mitamae-secrets get --base /path/to/secret greeting
 hello
 world
+
+% mitamae-secrets newkey --base /path/to/secret foo
+% cat /path/to/secret/keys/foo
+{"name":"foo","type":"aes1","key":"7RLkJdcH6pDEoMOjZIzTEjj6Ih0bTCYRxvw/zYknWrE=\n"}
 ```
 
 ## Build with mitamae
