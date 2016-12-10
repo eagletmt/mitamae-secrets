@@ -1,4 +1,6 @@
 # mitamae-secrets
+[![Build Status](https://travis-ci.org/eagletmt/mitamae-secrets.svg?branch=master)](https://travis-ci.org/eagletmt/mitamae-secrets)
+
 [itamae-secrets](https://github.com/sorah/itamae-secrets) for [mitamae](https://github.com/k0kubun/mitamae)
 
 ## Usage
