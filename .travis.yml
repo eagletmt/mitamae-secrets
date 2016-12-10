@@ -1,0 +1,3 @@
+language: ruby
+script:
+  - ruby run_test.rb
