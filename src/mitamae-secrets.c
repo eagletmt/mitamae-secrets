@@ -137,6 +137,27 @@ static mrb_value m_encryptors_aes_256_gcm_encrypt(mrb_state *mrb,
   return ret;
 }
 
+static mrb_value m_aes_key_random_bytes(mrb_state *mrb, mrb_value self) {
+  mrb_int size;
+
+  mrb_get_args(mrb, "i", &size);
+  return generate_random_bytes(mrb, size);
+}
+
+static mrb_value m_aes_key_cipher_key_length(mrb_state *mrb, mrb_value self) {
+  const EVP_CIPHER *cipher;
+  char *name;
+  mrb_int name_len;
+
+  mrb_get_args(mrb, "s", &name, &name_len);
+  cipher = EVP_get_cipherbyname(name);
+  if (cipher == NULL) {
+    return mrb_nil_value();
+  } else {
+    return mrb_fixnum_value(EVP_CIPHER_key_length(cipher));
+  }
+}
+
 void mrb_mitamae_secrets_gem_init(mrb_state *mrb) {
   struct RClass *module = mrb_define_module(mrb, "MitamaeSecrets");
   struct RClass *decriptors =
@@ -147,13 +168,24 @@ void mrb_mitamae_secrets_gem_init(mrb_state *mrb) {
       mrb_define_class_under(mrb, decriptors, "Aes256GcmV1", mrb->object_class);
   struct RClass *encryptors_aes_256_gcm =
       mrb_define_class_under(mrb, encryptors, "Aes256GcmV1", mrb->object_class);
+  struct RClass *aes_key =
+      mrb_define_class_under(mrb, module, "AesKey", mrb->object_class);
 
   mrb_define_method(mrb, decryptors_aes_256_gcm, "decrypt",
                     m_decryptors_aes_256_gcm_decrypt, MRB_ARGS_REQ(1));
 
   mrb_define_method(mrb, encryptors_aes_256_gcm, "_encrypt",
                     m_encryptors_aes_256_gcm_encrypt, MRB_ARGS_REQ(2));
+
+  mrb_define_singleton_method(mrb, (struct RObject *)aes_key, "random_bytes",
+                              m_aes_key_random_bytes, MRB_ARGS_REQ(1));
+  mrb_define_singleton_method(mrb, (struct RObject *)aes_key,
+                              "cipher_key_length", m_aes_key_cipher_key_length,
+                              MRB_ARGS_REQ(1));
+
+  OpenSSL_add_all_algorithms();
 }
 
 void mrb_mitamae_secrets_gem_final(mrb_state *mrb) {
+  EVP_cleanup();
 }
