@@ -12,6 +12,8 @@ static void print_usage() {
   puts("Usage:");
   printf("    %s set --base=BASE_DIR variable\n", program_name);
   printf("    %s get --base=BASE_DIR variable\n", program_name);
+  printf("    %s newkey --base=BASE_DIR [name]\n", program_name);
+  printf("    %s version\n", program_name);
 }
 
 static mrb_value ask_secret(mrb_state *mrb, const char *prompt) {
