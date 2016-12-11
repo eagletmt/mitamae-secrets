@@ -10,8 +10,10 @@ assert('interoperability between #store and #fetch') do
   store.store(:bar, 'xxx')
   assert_equal('P@ssw0rd', store.fetch('foo'))
   assert_equal('P@ssw0rd', store.fetch(:foo))
+  assert_equal('P@ssw0rd', store[:foo])
   assert_equal('xxx', store.fetch('bar'))
   assert_equal('xxx', store.fetch(:bar))
+  assert_equal('xxx', store[:bar])
 end
 
 assert('cannot decrypt with different key') do
@@ -30,5 +32,7 @@ assert('cannot fetch unknown variable') do
   aes_key = MitamaeSecrets::AesKey.generate_random('default')
   store.keychain.save(aes_key)
 
-  assert_raise(RuntimeError) { store.fetch('foo') }
+  assert_raise(KeyError) { store.fetch('does_not_exist') }
+  assert_equal(nil, store['does_not_exist'])
+  assert_equal(nil, store[:does_not_exist])
 end

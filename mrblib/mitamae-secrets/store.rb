@@ -21,6 +21,10 @@ module MitamaeSecrets
       end
     end
 
+    def [](name)
+      fetch(name, nil)
+    end
+
     def store(name, value, key = 'default')
       name = name.to_s
       path = values_path(name)
