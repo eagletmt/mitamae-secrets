@@ -243,7 +243,7 @@ int main(int argc, char *argv[]) {
   } else if (strcmp(subcmd, "newkey") == 0) {
     rc = cmd_newkey(mrb, argc - 1, argv + 1);
   } else {
-    fprintf(stderr, "Unknown subcommand: %s\n", argv[1]);
+    fprintf(stderr, "Unknown subcommand: %s\n", subcmd);
     print_usage();
     rc = 1;
   }
