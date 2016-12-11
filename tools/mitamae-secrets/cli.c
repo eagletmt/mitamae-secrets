@@ -1,6 +1,7 @@
 #include <getopt.h>
 #include <mruby.h>
 #include <mruby/string.h>
+#include <mruby/variable.h>
 #include <string.h>
 #include <termios.h>
 #include <unistd.h>
@@ -222,6 +223,15 @@ static int cmd_newkey(mrb_state *mrb, int argc, char *argv[]) {
   return 0;
 }
 
+static int cmd_version(mrb_state *mrb) {
+  mrb_value version =
+      mrb_const_get(mrb, mrb_obj_value(mrb_module_get(mrb, "MitamaeSecrets")),
+                    mrb_intern_lit(mrb, "VERSION"));
+  fwrite(RSTRING_PTR(version), 1, RSTRING_LEN(version), stdout);
+  putchar('\n');
+  return 0;
+}
+
 int main(int argc, char *argv[]) {
   mrb_state *mrb;
   int rc;
@@ -242,6 +252,8 @@ int main(int argc, char *argv[]) {
     rc = cmd_get(mrb, argc - 1, argv + 1);
   } else if (strcmp(subcmd, "newkey") == 0) {
     rc = cmd_newkey(mrb, argc - 1, argv + 1);
+  } else if (strcmp(subcmd, "version") == 0) {
+    rc = cmd_version(mrb);
   } else {
     fprintf(stderr, "Unknown subcommand: %s\n", subcmd);
     print_usage();
