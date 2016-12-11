@@ -7,7 +7,11 @@ assert('interoperability between #store and #fetch') do
   aes_key = MitamaeSecrets::AesKey.generate_random('default')
   store.keychain.save(aes_key)
   store.store('foo', 'P@ssw0rd')
+  store.store(:bar, 'xxx')
   assert_equal('P@ssw0rd', store.fetch('foo'))
+  assert_equal('P@ssw0rd', store.fetch(:foo))
+  assert_equal('xxx', store.fetch('bar'))
+  assert_equal('xxx', store.fetch(:bar))
 end
 
 assert('cannot decrypt with different key') do

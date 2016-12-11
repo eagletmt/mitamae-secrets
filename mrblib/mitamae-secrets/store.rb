@@ -8,6 +8,7 @@ module MitamaeSecrets
     DEFAULT = Object.new
 
     def fetch(name, default = DEFAULT)
+      name = name.to_s
       path = values_path(name)
       if File.exist?(path)
         decrypt(path)
@@ -21,6 +22,7 @@ module MitamaeSecrets
     end
 
     def store(name, value, key = 'default')
+      name = name.to_s
       path = values_path(name)
       validate_name!(name)
       encrypted_data = Encryptors.create(1, 'aes-256-gcm', keychain.load(key)).encrypt({value: value}.to_json)
