@@ -3,6 +3,7 @@ MRuby::Gem::Specification.new('mitamae-secrets') do |spec|
   spec.author = ['Kohei Suzuki']
   spec.summary = 'mitamae version of itamae-secrets'
   spec.bins = ['mitamae-secrets']
+  spec.version = '0.1.1'
 
   spec.linker.libraries << 'ssl' << 'crypto'
 
